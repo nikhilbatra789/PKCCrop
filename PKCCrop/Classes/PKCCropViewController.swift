@@ -36,7 +36,6 @@ public class PKCCropViewController: UIViewController {
     @IBOutlet fileprivate weak var scrollBottomConst: NSLayoutConstraint!
     @IBOutlet fileprivate weak var scrollLeadingConst: NSLayoutConstraint!
     @IBOutlet fileprivate weak var scrollTrailingConst: NSLayoutConstraint!
-    @IBOutlet private weak var toolBar: UIToolbar!
 
     fileprivate var isZoomTimer = Timer()
 
@@ -44,6 +43,8 @@ public class PKCCropViewController: UIViewController {
 
     @IBOutlet fileprivate weak var cropLineView: PKCCropLineView!
     @IBOutlet fileprivate weak var maskView: UIView!
+    @IBOutlet fileprivate weak var doneButton: UIButton!
+    @IBOutlet fileprivate weak var cancelButton: UIButton!
     
     private var imageRotateRate: Float = 0
 
@@ -53,12 +54,10 @@ public class PKCCropViewController: UIViewController {
         self.tag = tag
     }
 
-
-
     override public var prefersStatusBarHidden: Bool{
-        if self.navigationController == nil || !PKCCropHelper.shared.isNavigationBarShow{
+        if self.navigationController == nil || !PKCCropHelper.shared.isNavigationBarShow {
             return true
-        }else{
+        } else {
             return false
         }
     }
@@ -71,19 +70,11 @@ public class PKCCropViewController: UIViewController {
         }
     }
 
-
-
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if self.navigationController == nil || !PKCCropHelper.shared.isNavigationBarShow{
             self.navigationController?.setNavigationBarHidden(false, animated: true)
         }
-    }
-
-
-
-    deinit {
-        //print("deinit \(self)")
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -96,13 +87,13 @@ public class PKCCropViewController: UIViewController {
         self.initCrop(self.image)
     }
 
-    private func initVars(){
+    private func initVars() {
         self.view.backgroundColor = .black
         self.maskView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: PKCCropHelper.shared.maskAlpha)
         self.maskView.isUserInteractionEnabled = false
 
         if let height = self.navigationController?.navigationBar.bounds.height{
-            if PKCCropHelper.shared.isNavigationBarShow{
+            if PKCCropHelper.shared.isNavigationBarShow {
                 self.scrollTopConst.constant = 42 + height
             }
         }
@@ -113,40 +104,9 @@ public class PKCCropViewController: UIViewController {
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
         
-        self.toolBar.barTintColor = PKCCropHelper.shared.barTintColor
-        self.toolBar.backgroundColor = .white
-        self.toolBar.items?.forEach({ (item) in
-            item.tintColor = PKCCropHelper.shared.tintColor
-        })
-        
-        var barButtonItems = [UIBarButtonItem]()
-        
-        barButtonItems.append(UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelAction(_:))))
-        if !PKCCropHelper.shared.isDegressShow{
-            barButtonItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-        }else{
-            barButtonItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-            
-            if let image = PKCCropHelper.shared.degressBeforeImage{
-                barButtonItems.append(UIBarButtonItem(image: image.resize(CGSize(width: 24, height: 24)), style: .done, target: self, action: #selector(self.rotateLeftAction(_:))))
-            }else{
-                barButtonItems.append(UIBarButtonItem(title: "-90 Degress", style: .done, target: self, action: #selector(self.rotateLeftAction(_:))))
-            }
-            
-            barButtonItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-            
-            if let image = PKCCropHelper.shared.degressAfterImage{
-                barButtonItems.append(UIBarButtonItem(image: image.resize(CGSize(width: 24, height: 24)), style: .done, target: self, action: #selector(self.rotateRightAction(_:))))
-            }else{
-                barButtonItems.append(UIBarButtonItem(title: "90 Degress", style: .done, target: self, action: #selector(self.rotateRightAction(_:))))
-            }
-            
-            barButtonItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-        }
-        barButtonItems.append(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneAction(_:))))
-        self.toolBar.setItems(barButtonItems, animated: true)
+        self.doneButton.setImage(PKCCropHelper.shared.doneImage, for: .normal)
+        self.cancelButton.setImage(PKCCropHelper.shared.cancelImage, for: .normal)
     }
-
 
     private func initCrop(_ image: UIImage){
         self.scrollView.alpha = 0
@@ -187,15 +147,12 @@ public class PKCCropViewController: UIViewController {
             }
         }
     }
-
-
-
-
-    @objc private func cancelAction(_ sender: UIBarButtonItem) {
+    
+    @IBAction func cancelAction(_ sender: UIButton) {
         self.delegate?.pkcCropCancel(self)
     }
 
-    @objc private func doneAction(_ sender: UIBarButtonItem) {
+    @IBAction func doneAction(_ sender: UIButton) {
         let cropSize = self.cropLineView.cropSize()
         let captureRect = CGRect(
             x: -cropSize.origin.x+2,
@@ -214,23 +171,20 @@ public class PKCCropViewController: UIViewController {
         self.delegate?.pkcCropComplete(self)
     }
 
-
-    @objc private func rotateLeftAction(_ sender: UIBarButtonItem) {
+    @IBAction func rotateLeftAction(_ sender: UIButton) {
         guard let image = self.imageView.image?.imageRotatedByDegrees(-90, flip: false) else {
             return
         }
         self.initCrop(image)
     }
 
-    
-    @objc private func rotateRightAction(_ sender: UIBarButtonItem) {
+    @IBAction func rotateRightAction(_ sender: UIButton) {
         guard let image = self.imageView.image?.imageRotatedByDegrees(90, flip: false) else {
             return
         }
         self.initCrop(image)
     }
 }
-
 
 extension PKCCropViewController: UIScrollViewDelegate{
     @objc fileprivate func scrollDidZoomCenter(){
@@ -258,8 +212,7 @@ extension PKCCropViewController: UIScrollViewDelegate{
     }
 }
 
-
-extension PKCCropViewController: PKCCropLineDelegate{
+extension PKCCropViewController: PKCCropLineDelegate {
     func pkcCropLineMask(_ frame: CGRect){
         var frameValue = frame
         frameValue.origin.y += self.scrollTopConst.constant - 2

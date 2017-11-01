@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PKCCropViewController">
             <connections>
+                <outlet property="cancelButton" destination="ZgT-6J-N7u" id="Xbq-Ts-V6v"/>
                 <outlet property="cropLineView" destination="s3o-CZ-FSI" id="whU-eD-tVU"/>
+                <outlet property="doneButton" destination="1N8-ch-cb2" id="m1q-RU-u3H"/>
                 <outlet property="maskView" destination="2yD-j9-UbT" id="VJn-kc-B9S"/>
                 <outlet property="scrollBottomConst" destination="mtf-mK-ceZ" id="lfq-m8-WDI"/>
                 <outlet property="scrollLeadingConst" destination="fY0-Cr-Tn7" id="ajM-In-EOw"/>
                 <outlet property="scrollTopConst" destination="Juu-4F-tsB" id="XMc-mb-wyv"/>
                 <outlet property="scrollTrailingConst" destination="4et-n4-DL8" id="ocv-6K-s7o"/>
                 <outlet property="scrollView" destination="pt9-xv-pY8" id="uub-bk-PEI"/>
-                <outlet property="toolBar" destination="vHQ-L3-alI" id="MWr-tg-4kV"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Kgb-qb-Kfy"/>
             </connections>
         </placeholder>
@@ -27,45 +28,97 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Yn-Uv-Cse" userLabel="Navigation View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcE-DN-Vq0">
+                            <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94901960780000005" green="0.87058823529999996" blue="0.62745098040000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="zcE-DN-Vq0" secondAttribute="trailing" id="B1K-yb-gPs"/>
+                        <constraint firstAttribute="bottom" secondItem="zcE-DN-Vq0" secondAttribute="bottom" id="BXz-od-ITR"/>
+                        <constraint firstItem="zcE-DN-Vq0" firstAttribute="top" secondItem="0Yn-Uv-Cse" secondAttribute="top" constant="20" id="HZr-xO-4jd"/>
+                        <constraint firstAttribute="height" constant="64" id="YCh-uy-46b"/>
+                        <constraint firstItem="zcE-DN-Vq0" firstAttribute="leading" secondItem="0Yn-Uv-Cse" secondAttribute="leading" id="ufd-tt-42H"/>
+                    </constraints>
+                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pt9-xv-pY8">
-                    <rect key="frame" x="22" y="22" width="331" height="579"/>
+                    <rect key="frame" x="22" y="80" width="331" height="521"/>
                 </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wdt-PI-eW9">
+                    <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgT-6J-N7u">
+                            <rect key="frame" x="227.5" y="5.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="6OI-Qq-u8j"/>
+                                <constraint firstAttribute="width" constant="40" id="A9y-TN-IE3"/>
+                            </constraints>
+                            <state key="normal" image="image_editing_cross_sign.png"/>
+                            <connections>
+                                <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="Vbf-3w-DVe"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N8-ch-cb2">
+                            <rect key="frame" x="107.5" y="5.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Vw0-6z-Ylz"/>
+                                <constraint firstAttribute="height" constant="40" id="bwD-4E-bpK"/>
+                            </constraints>
+                            <state key="normal" image="image_editing_ok_sign.png"/>
+                            <connections>
+                                <action selector="doneAction:" destination="-1" eventType="touchUpInside" id="GqP-Da-AfR"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94901960780000005" green="0.87058823529999996" blue="0.62745098040000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="1N8-ch-cb2" firstAttribute="centerY" secondItem="Wdt-PI-eW9" secondAttribute="centerY" id="a1l-RB-pMD"/>
+                        <constraint firstItem="ZgT-6J-N7u" firstAttribute="centerY" secondItem="Wdt-PI-eW9" secondAttribute="centerY" id="mJ8-q5-bp8"/>
+                        <constraint firstItem="ZgT-6J-N7u" firstAttribute="centerX" secondItem="Wdt-PI-eW9" secondAttribute="centerX" constant="60" id="mnb-6H-OFu"/>
+                        <constraint firstItem="1N8-ch-cb2" firstAttribute="centerX" secondItem="Wdt-PI-eW9" secondAttribute="centerX" constant="-60" id="vsr-oI-EwH"/>
+                        <constraint firstAttribute="height" constant="50" id="yz3-SG-BTK"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yD-j9-UbT">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-CZ-FSI" customClass="PKCCropLineView" customModule="PKCCrop" customModuleProvider="target">
-                    <rect key="frame" x="20" y="20" width="335" height="583"/>
+                    <rect key="frame" x="20" y="78" width="335" height="525"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHQ-L3-alI">
-                    <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="jha-vs-02k"/>
-                    </constraints>
-                    <items/>
-                </toolbar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="Wdt-PI-eW9" secondAttribute="bottom" id="2Fr-LR-BHv"/>
                 <constraint firstAttribute="trailing" secondItem="pt9-xv-pY8" secondAttribute="trailing" constant="22" id="4et-n4-DL8"/>
+                <constraint firstAttribute="trailing" secondItem="0Yn-Uv-Cse" secondAttribute="trailing" id="BHA-xx-8a4"/>
                 <constraint firstItem="2yD-j9-UbT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DIG-jk-035"/>
+                <constraint firstItem="0Yn-Uv-Cse" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GRT-Bd-u5e"/>
                 <constraint firstItem="2yD-j9-UbT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IJJ-Bc-dKk"/>
-                <constraint firstItem="pt9-xv-pY8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="22" id="Juu-4F-tsB"/>
+                <constraint firstItem="pt9-xv-pY8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="80" id="Juu-4F-tsB"/>
                 <constraint firstItem="s3o-CZ-FSI" firstAttribute="bottom" secondItem="pt9-xv-pY8" secondAttribute="bottom" constant="2" id="P5H-Zx-8Hy"/>
+                <constraint firstAttribute="trailing" secondItem="Wdt-PI-eW9" secondAttribute="trailing" id="Trn-SW-YTv"/>
                 <constraint firstItem="s3o-CZ-FSI" firstAttribute="top" secondItem="pt9-xv-pY8" secondAttribute="top" constant="-2" id="WPa-ut-mNQ"/>
-                <constraint firstAttribute="bottom" secondItem="vHQ-L3-alI" secondAttribute="bottom" id="aC0-1e-7Jf"/>
                 <constraint firstAttribute="trailing" secondItem="2yD-j9-UbT" secondAttribute="trailing" id="bga-kW-L8a"/>
                 <constraint firstItem="pt9-xv-pY8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="22" id="fY0-Cr-Tn7"/>
                 <constraint firstAttribute="bottom" secondItem="2yD-j9-UbT" secondAttribute="bottom" id="hTc-9G-5wZ"/>
+                <constraint firstItem="0Yn-Uv-Cse" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hye-1o-PFU"/>
                 <constraint firstAttribute="bottom" secondItem="pt9-xv-pY8" secondAttribute="bottom" constant="66" id="mtf-mK-ceZ"/>
-                <constraint firstAttribute="trailing" secondItem="vHQ-L3-alI" secondAttribute="trailing" id="tTC-2I-Sje"/>
+                <constraint firstItem="Wdt-PI-eW9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qhf-5t-aro"/>
                 <constraint firstItem="s3o-CZ-FSI" firstAttribute="leading" secondItem="pt9-xv-pY8" secondAttribute="leading" constant="-2" id="uGJ-Dw-kTa"/>
                 <constraint firstItem="s3o-CZ-FSI" firstAttribute="trailing" secondItem="pt9-xv-pY8" secondAttribute="trailing" constant="2" id="wln-Gn-jVr"/>
-                <constraint firstItem="vHQ-L3-alI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yuL-xa-0hk"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="image_editing_cross_sign.png" width="153" height="153"/>
+        <image name="image_editing_ok_sign.png" width="153" height="153"/>
+    </resources>
 </document>

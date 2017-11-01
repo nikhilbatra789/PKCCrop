@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         
         PKCCropHelper.shared.degressBeforeImage = UIImage(named: "pkc_crop_rotate_left.png")
         PKCCropHelper.shared.degressAfterImage = UIImage(named: "pkc_crop_rotate_right.png")
+        PKCCropHelper.shared.doneImage = UIImage(named: "image_editing_ok_sign.png")
+        PKCCropHelper.shared.cancelImage = UIImage(named: "image_editing_cross_sign.png")
         
         DispatchQueue.main.async {
             self.cropAction()
@@ -55,6 +57,7 @@ class ViewController: UIViewController {
             PKCCropHelper.shared.isNavigationBarShow = false
             let cropVC = PKCCropViewController(UIImage(named: "image.jpeg")!)
             cropVC.delegate = self
+            
             self.navigationController?.pushViewController(cropVC, animated: true)
         }))
         self.present(alertController, animated: true, completion: nil)
@@ -100,9 +103,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else{
             return
         }
-        PKCCropHelper.shared.isNavigationBarShow = true
+        PKCCropHelper.shared.isNavigationBarShow = false
         let cropVC = PKCCropViewController(image, tag: 1)
         cropVC.delegate = self
         picker.pushViewController(cropVC, animated: true)
+        
     }
 }
