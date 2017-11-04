@@ -26,6 +26,9 @@ class ViewController: UIViewController {
         PKCCropHelper.shared.degressAfterImage = UIImage(named: "pkc_crop_rotate_right.png")
         PKCCropHelper.shared.doneImage = UIImage(named: "image_editing_ok_sign.png")
         PKCCropHelper.shared.cancelImage = UIImage(named: "image_editing_cross_sign.png")
+        PKCCropHelper.shared.navigationTitle = "#ManishKG"
+        //PKCCropHelper.shared.lineType = .hide
+        PKCCropHelper.shared.isDegressShow = true
         
         DispatchQueue.main.async {
             self.cropAction()

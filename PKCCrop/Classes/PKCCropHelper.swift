@@ -36,6 +36,7 @@ public class PKCCropHelper{
     public var tintColor: UIColor = UIColor(red: 0, green: 0.4, blue: 1, alpha: 1)
     
     public var isDegressShow = true
+    public var navigationTitle = ""
     public var degressBeforeImage: UIImage? = nil
     public var degressAfterImage: UIImage? = nil
     public var doneImage: UIImage? = nil

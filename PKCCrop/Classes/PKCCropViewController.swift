@@ -45,6 +45,14 @@ public class PKCCropViewController: UIViewController {
     @IBOutlet fileprivate weak var maskView: UIView!
     @IBOutlet fileprivate weak var doneButton: UIButton!
     @IBOutlet fileprivate weak var cancelButton: UIButton!
+    @IBOutlet fileprivate weak var doneRotateButton: UIButton!
+    @IBOutlet fileprivate weak var cancelRotateButton: UIButton!
+    @IBOutlet fileprivate weak var rotateLeftButton: UIButton!
+    @IBOutlet fileprivate weak var rotateRightButton: UIButton!
+    @IBOutlet weak var navigationBarView: UIView!
+    @IBOutlet weak var navigationTitle: UILabel!
+    @IBOutlet weak var rotationView: UIView!
+    @IBOutlet weak var cropView: UIView!
     
     private var imageRotateRate: Float = 0
 
@@ -106,6 +114,20 @@ public class PKCCropViewController: UIViewController {
         
         self.doneButton.setImage(PKCCropHelper.shared.doneImage, for: .normal)
         self.cancelButton.setImage(PKCCropHelper.shared.cancelImage, for: .normal)
+        self.doneRotateButton.setImage(PKCCropHelper.shared.doneImage, for: .normal)
+        self.cancelRotateButton.setImage(PKCCropHelper.shared.cancelImage, for: .normal)
+        self.rotateLeftButton.setImage(PKCCropHelper.shared.degressBeforeImage, for: .normal)
+        self.rotateRightButton.setImage(PKCCropHelper.shared.degressAfterImage, for: .normal)
+        
+        self.navigationTitle.text = PKCCropHelper.shared.navigationTitle
+        
+        if PKCCropHelper.shared.isDegressShow {
+            self.rotationView.isHidden = false
+            self.cropView.isHidden = true
+        } else {
+            self.rotationView.isHidden = true
+            self.cropView.isHidden = false
+        }
     }
 
     private func initCrop(_ image: UIImage){
@@ -153,6 +175,14 @@ public class PKCCropViewController: UIViewController {
     }
 
     @IBAction func doneAction(_ sender: UIButton) {
+        
+        if PKCCropHelper.shared.isDegressShow {
+            let img = self.imageView.image
+            self.delegate?.pkcCropImage(img, originalImage: self.image)
+            self.delegate?.pkcCropComplete(self)
+            return
+        }
+        
         let cropSize = self.cropLineView.cropSize()
         let captureRect = CGRect(
             x: -cropSize.origin.x+2,

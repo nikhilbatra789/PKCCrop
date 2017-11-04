@@ -84,7 +84,12 @@ class PKCCropLineView: UIView {
         self.lineView.backgroundColor = .clear
         self.subLineView.backgroundColor = .clear
         
-        self.subLineView.alpha = PKCCropHelper.shared.lineType == .show ? 1 : 0
+        self.subLineView.alpha = PKCCropHelper.shared.isDegressShow ? 0 : 1
+        self.lineView.alpha = PKCCropHelper.shared.isDegressShow ? 0 : 1
+        self.leftTopButton.alpha = PKCCropHelper.shared.isDegressShow ? 0 : 1
+        self.leftBottomButton.alpha = PKCCropHelper.shared.isDegressShow ? 0 : 1
+        self.rightTopButton.alpha = PKCCropHelper.shared.isDegressShow ? 0 : 1
+        self.rightBottomButton.alpha = PKCCropHelper.shared.isDegressShow ? 0 : 1
         
         if !PKCCropHelper.shared.isCropRate && !PKCCropHelper.shared.isCircle{
             self.ratioConst.isActive = false
