@@ -22,11 +22,11 @@ class ViewController: UIViewController {
         self.title = "PKCCrop"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.cropAction(_:)))
         
-        PKCCropHelper.shared.degressBeforeImage = UIImage(named: "pkc_crop_rotate_left.png")
-        PKCCropHelper.shared.degressAfterImage = UIImage(named: "pkc_crop_rotate_right.png")
+        PKCCropHelper.shared.degressBeforeImage = UIImage(named: "anti-clockwise_rotate.png")
+        PKCCropHelper.shared.degressAfterImage = UIImage(named: "clockwise_rotate.png")
         PKCCropHelper.shared.doneImage = UIImage(named: "image_editing_ok_sign.png")
         PKCCropHelper.shared.cancelImage = UIImage(named: "image_editing_cross_sign.png")
-        PKCCropHelper.shared.navigationTitle = "#ManishKG"
+        PKCCropHelper.shared.navigationTitle = ""
         //PKCCropHelper.shared.lineType = .hide
         PKCCropHelper.shared.isDegressShow = true
         
