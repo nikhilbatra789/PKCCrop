@@ -106,7 +106,6 @@ class PKCCropLineView: UIView {
         }
     }
 
-
     private func makeMask(){
         self.layoutIfNeeded()
         guard let frame = self.superview?.convert(self.lineView.frame, to: nil) else {
@@ -153,11 +152,6 @@ class PKCCropLineView: UIView {
         self.makeMask()
     }
 
-
-
-
-
-
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if self.leftTopButton.frame.contains(point){
             return true
@@ -196,10 +190,6 @@ class PKCCropLineView: UIView {
 
 
     // - MARK Drag Action
-
-
-
-
     @IBAction private func touchUpAction(_ sender: UIButton, forEvent event: UIEvent){
         self.touchPoint = nil
         if PKCCropHelper.shared.lineType == .default{
@@ -221,10 +211,6 @@ class PKCCropLineView: UIView {
             }
         }
     }
-
-
-
-
 
     @IBAction private func centerDragAction(_ sender: UIButton, forEvent event: UIEvent) {
         guard let touchPoint = self.touchPoint else {
@@ -372,7 +358,6 @@ class PKCCropLineView: UIView {
             self.makeMask()
         }
     }
-
 
     @IBAction private func leftTopDragAction(_ sender: UIButton, forEvent event: UIEvent) {
         guard let touchPoint = self.touchPoint else {
